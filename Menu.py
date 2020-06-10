@@ -47,11 +47,9 @@ def menu(path,driver,server,database):
     conn.close()
     exit()
 
-
-###########
-#Run code #
-###########
-
+#########
+#Configs#
+#########
 #path of "calls.csv" file ( NEED TO BE REDEFINED TO RUN )
 path = r'C:\Users\jmenderu\Desktop\ChallengeTalkDesk\calls.csv'
 
@@ -60,4 +58,8 @@ driver = 'SQL Server'
 server = 'localhost'
 database = 'MyDB'
 
+###########
+#Run code #
+###########
+# main function
 menu(path,driver,server,database)

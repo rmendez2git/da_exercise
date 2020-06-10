@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import plotly.express as px
 
-# function that import "calls.csv" file to the dataframe and return it. Returna a dataframe.
+# function that import "calls.csv" file to the dataframe and return it. Return a dataframe.
 def getDataFrame(path):
     csvFile = pd.read_csv(path)
     data = pd.DataFrame(csvFile, columns=['id', 'agentid', 'duration', 'date', 'inbound'])
@@ -34,13 +34,12 @@ def checkTableExists(tablename,cursor):
 
 #function that create and insert all values on table "calls_history"
 def createAndLoadTable(cursor,df,conn):
-    #Create table of needed
+    #Create table if needed
     sqlCreateTable = "IF NOT EXISTS (SELECT [name] FROM sys.tables WHERE [name] = 'calls_history' ) CREATE TABLE MyDB.dbo.calls_history (id int NOT NULL PRIMARY KEY, AgentId TINYINT NOT NULL, Duration float(2) NOT NULL, Date DATE NOT NULL,Inbound BIT)"
 
     cursor.execute(sqlCreateTable)
     conn.commit()
 
-    # insert rows of the calls.csv file
     for row in df.itertuples():
         cursor.execute('''
                     INSERT INTO MyDB.dbo.calls_history (id, AgentId, Duration,Date,Inbound)
@@ -53,7 +52,7 @@ def createAndLoadTable(cursor,df,conn):
                        row.inbound)
     conn.commit()
 
-#function that calculate and draw average per agent graph
+#function that calculate and draw graph with average per agent
 def avgByAgentPlot(cursor):
     sqlAvg = '''SELECT [AgentId],ROUND(AVG(Duration),2) as avgPerAgent
                       FROM [MyDB].[dbo].[calls_history]
@@ -86,7 +85,7 @@ def avgByAgentPlot(cursor):
 
     plt.show()
 
-#function that return a dataframe only for Average By Day By Agent ( it will reuse in some functions )
+#function that return a dataframe only for Average By Day By Agent
 def dfAvgByDayByAgent(conn):
     sqlDayAvg = '''SELECT Date,AgentId,Duration
                       FROM [MyDB].[dbo].[calls_history]
@@ -117,7 +116,7 @@ def interactivePlotAvgByDayByAgent(df):
 
     fig.show()
 
-#function that calculate and draw line graph with average per day per agent
+#function that calculate and draw line graph with average per day per agent but with monthly visualization
 def linePlotAvgByDayByAgent_Monthly(df):
 
     df['Date'] = pd.to_datetime(df['Date']).dt.strftime('%m %Y')
@@ -141,7 +140,6 @@ def linePlotAvgByDayByAgent_Monthly(df):
     plt.plot(x, y_agent5, label='Agent 5')
 
     # labels
-
     plt.xlabel('Date ( Months ) ')
     plt.ylabel('Average ( Min )')
     plt.xticks(np.arange(len(x)), x, rotation=25)
