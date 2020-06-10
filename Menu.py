@@ -20,32 +20,30 @@ def menu(path,driver,server,database):
     print('3 - Draw a line graph with average per day per agent (monthly visualization)')
     print('4 - Quit')
 
-    while True:
-        try:
-            op = int(input("Insert an option -> "))
-            if op == 1:
-                avgByAgentPlot(cursor)
-                print("\n[StatusInfo] Graph was successfully drawn.")
-                menu(path,driver,server,database)
-            elif op == 2:
-                interactivePlotAvgByDayByAgent(df_AbDbA)
-                print("\n[StatusInfo] This option opens a new tab on your browser.")
-                menu(path,driver,server,database)
-            elif op == 3:
-                linePlotAvgByDayByAgent_Monthly(df_AbDbA)
-                print("\n[StatusInfo] Graph was successfully drawn.")
-                menu(path,driver,server,database)
-            elif op == 4:
-                break
-            else:
-                print('\n[StatusInfo] Invalid option. Please, choose another option between 1-4.')
-                menu(path,driver,server,database)
-        except ValueError:
-            print("\n[StatusInfo] Invalid value. Please, insert numeric value and choose an option between 1-4.")
+    try:
+        op = int(input("Insert an option -> "))
+        if op == 1:
+            avgByAgentPlot(cursor)
+            print("\n[StatusInfo] Graph was successfully drawn.")
+            menu(path,driver,server,database)
+        elif op == 2:
+            interactivePlotAvgByDayByAgent(df_AbDbA)
+            print("\n[StatusInfo] This option opens a new tab on your browser.")
+            menu(path,driver,server,database)
+        elif op == 3:
+            linePlotAvgByDayByAgent_Monthly(df_AbDbA)
+            print("\n[StatusInfo] Graph was successfully drawn.")
+            menu(path,driver,server,database)
+        elif op == 4:
+            cursor.close()
+            conn.close()
+            exit()
+        else:
+            print('\n[StatusInfo] Invalid option. Please, choose another option between 1-4.')
+            menu(path,driver,server,database)
+    except ValueError:
+        print("\n[StatusInfo] Invalid value. Please, insert numeric value and choose an option between 1-4.")
 
-    cursor.close()
-    conn.close()
-    exit()
 
 #########
 #Configs#
