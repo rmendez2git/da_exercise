@@ -3,7 +3,6 @@ import pyodbc
 import matplotlib.pyplot as plt
 import numpy as np
 import plotly.express as px
-import plotly.io as pio
 
 # function that import "calls.csv" file to the dataframe and return it. Returna a dataframe.
 def getDataFrame(path):
@@ -105,7 +104,7 @@ def interactivePlotAvgByDayByAgent(df):
     df_f['AgentId'] = df_f['AgentId'].apply(str)
 
     fig = px.scatter(df_f, x="Date", y="Duration", color="AgentId", hover_name="AgentId",
-                     title="<b> Avg per Day per Agent </b>")
+                     title="<b> Average per Day per Agent </b>")
 
     fig.update_traces(marker=dict(size=12,
                                   line=dict(width=2, color='black')),
@@ -114,9 +113,9 @@ def interactivePlotAvgByDayByAgent(df):
     fig.update_layout(legend_title='<b> Agent ID filter: </b>')
 
     fig.update_xaxes(showgrid=True, gridwidth=1, gridcolor='LightGray')
-    fig.update_yaxes(showgrid=True, gridwidth=1, gridcolor='LightGray')
+    fig.update_yaxes(title= 'Average ( Min )',showgrid=True, gridwidth=1, gridcolor='LightGray')
 
-    pio.show(fig)
+    fig.show()
 
 #function that calculate and draw line graph with average per day per agent
 def linePlotAvgByDayByAgent_Monthly(df):

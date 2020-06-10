@@ -52,10 +52,10 @@ def menu(path,driver,server,database):
 #Run code #
 ###########
 
-#path of "calls.csv" file
+#path of "calls.csv" file ( NEED TO BE REDEFINED TO RUN )
 path = r'C:\Users\jmenderu\Desktop\ChallengeTalkDesk\calls.csv'
 
-#SQL configs ( only with windows autentication ) #
+#SQL configs ( only with windows autentication ) ( NEED TO BE REDEFINED TO RUN )
 driver = 'SQL Server'
 server = 'localhost'
 database = 'MyDB'
